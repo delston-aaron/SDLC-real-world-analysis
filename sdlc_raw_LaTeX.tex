@@ -3,26 +3,40 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{booktabs}
+\usepackage[dvipsnames]{xcolor}
 \usepackage{caption}
 \usepackage{listings}
-\usepackage{lineno}  % Enable line numbers on both sides
+%\usepackage{lineno}  % Enable line numbers on both sides
 \usepackage{blindtext}
 \usepackage{fancyhdr}  % Enable page numbering in header/footer
 \usepackage{multirow}
 \usepackage{longtable,booktabs,array}
 \usepackage{calc}
+\usepackage[
+includehead,
+nomarginpar,% We don't want any margin paragraphs
+textwidth=10cm,% Set \textwidth to 10cm
+headheight=25pt,% Set \headheight to 25pt to accommodate the multiline header
+]{geometry}
+\usepackage{fancyhdr}
+\usepackage{datetime2}
 
-
-% Configure line numbers
+\usepackage[left, right]{lineno}  % Enable line numbers on both sides
+\usepackage{etoolbox}  % Required for modifying commands
+\preto{\newpage}{\resetlinenumber}
+\preto{\pagebreak}{\resetlinenumber}
 \linenumbers  % Enable line numbering globally
 \modulolinenumbers[1]  % Number every line
+
 \makeatletter
 \def\makeLineNumberLeft{%
   \linenumberfont\llap{\hb@xt@\linenumberwidth{\LineNumber\hss}\hskip\linenumbersep}% left line number
   \hskip\columnwidth% skip over column of text
   \rlap{\hskip\linenumbersep\hb@xt@\linenumberwidth{\hss\LineNumber}}\hss}% right line number
-\leftlinenumbers% Re-issue [left] option
+\leftlinenumbers  % Ensure line numbers appear on the left
 \makeatother
+
+
 
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
@@ -31,6 +45,10 @@
 % Configure page numbers
 \pagestyle{fancy}
 \fancyhf{}  % Clear all header and footer fields
+%... then configure it.
+\fancyhead{} % clear all header fields
+\fancyhead[RO,RE]{{\footnotesize \textsc{Netflix SDLC Analysis},in: (ed.): \LaTeX .\\  typeset \DTMnow}}
+
 \fancyfoot[C]{Page \thepage}  % Centered page number at the bottom
 
 \title{\textbf{Software Development Lifecycle (SDLC) Analysis of Netflix} \\ \large A Comparative Study of Different Models in Relation to Netflix’s Software Development}
@@ -69,12 +87,12 @@ material used for preparing this research.
 \newpage
 
 \section{Introduction}
-Netflix is one of the leading video streaming platforms globally, offering on-demand content to millions of users. The platform relies on a robust cloud-based infrastructure, primarily hosted on Amazon Web Services (AWS). Given its large-scale nature, Netflix requires an efficient software development lifecycle (SDLC) to manage continuous updates, new features, and system stability.
+Netflix is one of the leading video streaming platforms globally, offering on-demand content to millions of users. The platform relies on a robust cloud-based infrastructure, primarily hosted on \textcolor{Blue}{Amazon Web Services (AWS)}. Given its large-scale nature, Netflix requires an efficient software development lifecycle (SDLC) to manage continuous updates, new features, and system stability.
 This report conducts a comparative study of incremental development, spiral model, and waterfall model in relation to Netflix’s software development. It also explores requirements engineering, and the challenges faced.
 
 \section{Overview of Netflix}
 \subsection{System Overview}
-Netflix provides subscription-based access to movies, TV shows, and original content. The system supports multiple devices, personalized recommendations, and high-quality video streaming with adaptive bitrate technology. It is an American subscription service providing video on-demand and over-the-top streaming. The service primarily distributes both original and acquired films and television shows from various genres, and it is available internationally in multiple languages.
+Netflix provides subscription-based access to movies, TV shows, and original content. The system supports multiple devices, personalized recommendations, and high-quality video streaming with adaptive bitrate technology. It is an American subscription service providing video \textcolor{Blue}{on-demand} and \textcolor{Blue}{over-the-top} streaming. The service primarily distributes both original and acquired films and television shows from various genres, and it is available internationally in multiple languages.
 
 \subsection{Technologies Used}
 \begin{itemize}
@@ -89,13 +107,14 @@ Netflix does use more technologies in every department. The ones mentioned above
 
 \begin{figure}[tbhp]
 \centering
-\includegraphics[width=.8\linewidth]{tech-stack-edited.png}
+\includegraphics[width=.8\linewidth]{techstack-edited.jpg}
 \caption{Figure 1- Represents the diverse tech stack}
 \label{fig:techstack}
 \end{figure}
+\newpage
 
 \section{Comparative Analysis of SDLC Models}
-\subsection{Waterfall Model}
+\subsection{\textcolor{Blue}{Waterfall Model}}
 \begin{figure}[tbhp]
 \centering
 \includegraphics[width=.8\linewidth]{the_waterfall_model.png}
@@ -110,7 +129,7 @@ Netflix does use more technologies in every department. The ones mentioned above
     \item \textbf{Phase 4: Integration and System Testing} – After development is completed, the entire system undergoes integration and rigorous testing. Integration becomes a crucial part in this process since, they have to be very fluid with integrating it properly so it runs everywhere without any hassle, otherwise the millions of people using it will be affected. Now the testing phase includes functional testing, performance testing, and security testing. Since all components are built at once, identifying and fixing bugs can be time-consuming.
     \item \textbf{Phase 5: Operation and Maintenance} – The fully developed streaming platform is deployed to production. Now this can be localised, for example to a specific country, region or even the whole world. This marks the system’s release, and users can now access Netflix. Any bugs or issues discovered post-launch are addressed during the maintenance. However, because in this model new changes require extensive planning and reimplementation, updates take a long time to roll out and overall, we can see how this is very inefficient, especially for a data-driven and dynamic organization such as Netflix.
 \end{enumerate}
-\pagebreak
+\newpage
 \textbf{Suitability for Netflix:}
 \begin{enumerate}
     \item \textbf{Pros:}
@@ -128,7 +147,7 @@ Netflix does use more technologies in every department. The ones mentioned above
     \item \textbf{Verdict:} Not suitable, as Netflix requires frequent updates, rapid feature deployment, and adaptability to its evolving user preferences.
 \end{enumerate}
 
-\subsection{Incremental Development Model}
+\subsection{\textcolor{Blue}{Incremental Development Model}}
 \begin{figure}[tbhp]
 \centering
 \includegraphics[width=.8\linewidth]{Incremental Development Model.png}
@@ -141,7 +160,8 @@ Netflix does use more technologies in every department. The ones mentioned above
     \item \textbf{Phase 2: Feature-wise Development} – Instead of developing the entire system at once, Netflix will be able to continuously releases new features. Now for example, it can improve the recommendation algorithms, have new content categories, and enhanced offline viewing. Each feature undergoes design, development, testing, and deployment in separate cycles, and each of it can be visited again, changes can be made. It makes it very sophisticated, speaking in terms of development.
     \item \textbf{Phase 3: Continuous User Feedback} – Each increment is deployed to beta users who provide feedback through usage patterns and explicit ratings. This becomes very helpful for Netflix since, if there are any bugs or inconveniences, it won’t affect its actual users. Developers analyse this feedback and make necessary adjustments before launching the next increment. Now, feedback is also taken through its regular users too. But the idea is to reduce the inconvenience caused to them and to provide them with a reliable platform.
     \item \textbf{Phase 4: System Testing and Refinement} – Every new feature or update undergoes extensive testing. Each development phase can be visited again, developers can add as many changes as they want, like we have already discussed. This including performance analysis, bug fixes, and security assessments. Automated pipelines are used, which is an awesome way to ensure continuous integration and testing.
-    \item \textbf{Phase 5: Deployment and Monitoring} – Features are released to production in batches. By batches, I mean it can be released to a specific localized zone, a country, etc. This ensures minimal downtime. Something called an A/B testing is often used to compare different versions of a feature before full-scale deployment. This can really help Netflix with seamless user experience.
+    
+    \item\pagebreak \textbf{Phase 5: Deployment and Monitoring} – Features are released to production in batches. By batches, I mean it can be released to a specific localized zone, a country, etc. This ensures minimal downtime. Something called an A/B testing is often used to compare different versions of a feature before full-scale deployment. This can really help Netflix with seamless user experience.
     \item \textbf{Phase 6: Iteration and Maintenance} – Now, as we discussed, this is an iterative process. It’s like a cycle that repeats as developers refine existing features, resolve any user-reported issues, and also when they introduce new functionalities to the platform, which is done based on the ever-changing user needs.
 \end{enumerate}
 \textbf{Suitability for Netflix:}
@@ -159,17 +179,17 @@ Netflix does use more technologies in every department. The ones mentioned above
         \item Needs a strong version control mechanisms to manage multiple development branches, and how they merge together.
         \item They can become complex if too many features are being worked on or developed simultaneously.
     \end{itemize}
-    \item \textbf{Verdict:} Highly suitable for such a large-scale, evolving platform like Netflix, as it supports continuous and almost seamless updates and user-driven enhancements.
+    \item \textbf{Verdict:} \textcolor{Blue}{Highly suitable} for such a large-scale, evolving platform like Netflix, as it supports continuous and almost seamless updates and user-driven enhancements.
 \end{enumerate}
 
-\subsection{Spiral Model}
+\subsection{\textcolor{Blue}{Spiral Model}}
 \begin{figure}[h]
 \centering
 \includegraphics[width=.65\linewidth]{Spiral Model.png}
 \caption{Figure 4- Represents the Spiral Model}
 \label{fig:spiral}
 \end{figure}
-\pagebreak
+\newpage
 \textbf{How Netflix Would Be Developed Using Spiral:}
 \begin{enumerate}
     \item \textbf{Phase 1: Risk Analysis and Prototyping} – Prior to deploying a significant feature maybe like AI-powered recommendations, etc, Netflix analyses the risks surrounding it. This includes algorithm biases, data security threats, and performance overhead. In a spiral model it is feasible to develop small scale prototypes first, before proceeding to develop on a full scale. This makes it separated and better maintained, and is efficient when it comes to testing.
@@ -193,9 +213,9 @@ Netflix does use more technologies in every department. The ones mentioned above
         \item Requires highly skilled teams to develop using this model and assess risks accurately.
         \item Can be inefficient for routine updates that do not involve high-risk factors, and especially those which have minor fixes.
     \end{itemize}
-    \item \textbf{Verdict:} Suitable for \textbf{high-risk features} for example, the security updates, AI-based recommendations, cloud infrastructure upgrades, etc but may not be necessary for routine feature development.
+    \item \textbf{Verdict:} Suitable for \textcolor{Blue}{high-risk features} for example, the security updates, AI-based recommendations, cloud infrastructure upgrades, etc but may not be necessary for routine feature development.
 \end{enumerate}
-\pagebreak
+\newpage
 \subsection{Summary of Comparison}
 \begin{table}[h]
     \centering
@@ -227,11 +247,11 @@ By Functional requirements, I mean the specific behaviours and functionalities t
     \item \textbf{Parental Controls} Age-restricted content management and customizable parental controls. It can have a PIN-based access for mature content.
     \item \textbf{User Analytics \& Insights} Collection of user engagement data for personalization and marketing strategies. This data can be anything like watch time, drop-off rates and content popularity. Integrating predictive analytics to enhance the experience is also possible.
 \end{itemize}
-
+\newpage
 \subsection{Non-Functional Requirements}
 \begin{itemize}
     \item \textbf{Scalability} The system must handle millions of concurrent users without a drop in performance. AWS Auto Scaling and Load balancing can be used to dynamically allocate resources based on demand.
-    \item \textbf{Availability} 99.99\% uptime can be achieved through multi-region AWS deployment. Redundant servers to prevent outages, etc.
+    \item \textbf{Availability} A decent uptime can be achieved through multi-region AWS deployment. Redundant servers to prevent outages, etc.
     \item \textbf{Security} End-to-end encryption like TSL/SSL encryptions, secure user authentication mechanisms which must include biometric/CAPTCHA verification and fraud detection with periodic security and penetration testing.
     \item \textbf{Performance} Low latency for streaming and quick content buffering. It can use Content Delivery Networks (CDNs) like AWS CloudFront for faster content delivery.
     \item \textbf{Compliance \& Legal Considerations} Adherence to GDPR, DMCA, and copyright laws. Digital Rights Management (DRM) to prevent unauthorized content distribution.
@@ -253,13 +273,13 @@ Despite a good structured validation approach, Netflix faces challenges in requi
 \begin{itemize}
     \item \textbf{Dynamic User Expectations: } Trends tend to change constantly in entertainment consumption as we all know.
     \item \textbf{Global Compliance Issues: } Adapting to different regional content laws and licensing agreements becomes a tedious job.
-    \item \textbf{Scalability & Performance Bottlenecks: } Handling peak traffic loads and maintaining seamless service across diverse network conditions is difficult speaking of the infrastructure.
+    \item \textbf{Scalability \& Performance Bottlenecks: } Handling peak traffic loads and maintaining seamless service across diverse network conditions is difficult speaking of the infrastructure.
     \item \textbf{AI Bias in Personalization: } Ensuring fairness and inclusivity in recommendations. Sometimes it can over-prioritize specific genres or demographics.
-    \item \textbf{Content Piracy & Security Threats: } There has been a rising threat of piracy platforms and constantly evolving risks in digital rights management.
+    \item \textbf{Content Piracy \& Security Threats: } There has been a rising threat of piracy platforms and constantly evolving risks in digital rights management.
 \end{itemize}
-
+\newpage
 \section{Conclusion}
-Netflix, as we know is a continuously evolving platform. Based on our understanding from this paper, we can conclude that it benefits most from Incremental Development for rapid feature deployment and Spiral Model for high-risk features. The Waterfall model is not suitable due to its rigid structure.
+Netflix, as we know is a continuously evolving platform. Based on our understanding from this paper, we can conclude that it benefits most from Incremental Development for \textcolor{Blue}{rapid feature deployment} and Spiral Model for \textcolor{Blue}{high-risk features}. The Waterfall model is not suitable due to its rigid structure.
 It has a very effective requirements engineering process that ensures that Netflix meets both functional and non-functional demands.
 
 \section{References}
