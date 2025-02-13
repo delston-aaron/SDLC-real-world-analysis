@@ -48,11 +48,6 @@ To compile the report manually:
 
 ---
 
-## **License**  
-This project is licensed under the **MIT License**, allowing modifications and sharing with attribution.  
-
----
-
 ## **Contact**  
 For any questions or clarifications, feel free to reach out:  
 📧 **Email:** delston.aaron@gmail.com 
