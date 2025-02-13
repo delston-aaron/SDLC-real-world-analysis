@@ -8,7 +8,7 @@ This repository contains a detailed report on the **Software Development Lifecyc
 
 ## **Repository Structure**  
 
-/SDLC_Netflix_Analysis │── /Diagrams # Contains all figures used in the report │── /LaTeX # LaTeX source files for the report │ ├── sdlc_netflix.tex # Main LaTeX document │ ├── SDLC_Project_Report_LaTeX.pdf # Compiled PDF version of the report │ ├──  /Word # Microsoft Word version of the report │ ├── sdlc_netflix.docx # Word document with the same content as the PDF │── README.md # This file
+/SDLC_Netflix_Analysis │── /Diagrams # Contains all figures used in the report │── /Bin # Contains all temporary files and word file versions │ ├── sdlc_netflix.tex # Main LaTeX document │ ├── SDLC_Project_Report_LaTeX.pdf # Compiled PDF version of the report │ │── README.md # This file
 
 
 ---
@@ -19,8 +19,6 @@ This repository contains a detailed report on the **Software Development Lifecyc
 - **LaTeX Source**  
   - The report is written in **LaTeX** and can be compiled using a LaTeX editor like Overleaf, TeXworks, or TeXstudio.  
   - The compiled PDF version is included (`SDLC_Project_Report_LaTeX.pdf`).  
-- **Microsoft Word**  
-  - A `.docx` version of the report with the same content as the LaTeX-generated PDF.  
 
 ### **2. Diagrams (`/Diagrams`)**  
 - All figures used in the report are stored in this folder.  
@@ -32,7 +30,7 @@ This repository contains a detailed report on the **Software Development Lifecyc
 
 ### **View the Report**  
 - The **PDF report** is available in `/SDLC_Project_Report_LaTeX.pdf`.  
-- The **Word document** is available in `SDLC_Project_Report.docx`.  
+- The **Word document** is available in `/bin/SDLC_Project_Report.docx`.  
 
 ### **Compile the LaTeX Report**  
 To compile the report manually:  
